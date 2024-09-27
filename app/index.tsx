@@ -1,21 +1,22 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
-import ParallaxScrollView from '@/components/ParallaxScrollView';
+import React from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function HomeScreen() {
+  const navigation = useNavigation();
+
   return (
-    <ParallaxScrollView 
-      headerBackgroundColor={{ light: '#FFFFFF', dark: '#FFFFFF' }} 
-      headerImage={
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.container}>
+        {/* Character Image */}
         <Image
           source={require('@/assets/images/1.png')}
           style={styles.characterImage}
         />
-      }
-    >
-      <View style={styles.container}>
+
         {/* Title Text */}
-        <Text style={styles.titleText}>Discover Your Dream Job here</Text>
+        <Text style={styles.titleText}>Discover Your Dream</Text>
+        <Text style={styles.titleText}>Job here</Text>
 
         {/* Subtitle Text */}
         <Text style={styles.subtitleText}>
@@ -24,45 +25,51 @@ export default function HomeScreen() {
 
         {/* Button Section */}
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.loginButton}>
+          <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Login' as never)}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.registerButton}>
+          <TouchableOpacity style={styles.registerButton} onPress={() => navigation.navigate('Register' as never)}>
             <Text style={styles.registerText}>Register</Text>
           </TouchableOpacity>
         </View>
       </View>
-    </ParallaxScrollView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1, 
+    justifyContent: 'center', 
+  },
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 16,
-    marginTop: 206,
     backgroundColor: '#FFFFFF', 
   },
   characterImage: {
-    height: 378,
-    width: 290,
-    marginBottom: 16,
+    height: 320, 
+    width: 320, 
+    marginBottom: 24,
+    marginTop: 80, 
   },
   titleText: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: '#1A2B87', 
-    marginVertical: 16,
+    color: '#1F41BB', 
+    marginVertical: 0,
   },
   subtitleText: {
     fontSize: 14,
     color: '#333333',
     textAlign: 'center',
+    fontWeight: 'semibold',
     marginBottom: 32,
+    marginTop: 16,
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -71,17 +78,19 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   loginButton: {
-    backgroundColor: '#1A2B87', 
+    backgroundColor: '#1F41BB', 
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 8,
+    marginTop: 26,
+    marginBottom: 26,
   },
   registerButton: {
-    borderColor: '#000000',
-    borderWidth: 1,
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 8,
+    marginTop: 26,
+    marginBottom: 26,
   },
   buttonText: {
     color: '#FFFFFF',
